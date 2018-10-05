@@ -2,7 +2,6 @@
 // 10/3/18
 // Vector.cpp
 // Creates reachable implemented functions for the Vector class.
-#pragma once
 #include "Vector.h"
 #include <fstream>
 #include <iostream>
@@ -62,11 +61,28 @@ void Vector::push_back(int element) {
 }
 
 void Vector::resize() {
+	double *tempvec_ptr;
+	if (vec_capacity == 0) {
+		tempvec_ptr = new double[(1)];
+	}
+	else {
+		tempvec_ptr = new double[(vec_capacity * 2)];
+	}
+
+	for (int i = 0; i < vec_size; i++) {
+		tempvec_ptr[i] = vec_ptr[i];
+	}
+
+	delete[] vec_ptr;
+
+	vec_ptr = tempvec_ptr;
+
 	if (vec_capacity == 0) {
 		vec_capacity = 1;
 	}
-	else
-		vec_capacity = vec_capacity + vec_capacity;
+	else {
+		vec_capacity *= 2;
+	}
 }
 
 double& Vector::operator[](unsigned int index) {
